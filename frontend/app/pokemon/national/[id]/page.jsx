@@ -10,7 +10,8 @@ const getPokemon = async (id) => {
 }
 
 export default async function Page({ params }) {
-  const pokemon = await getPokemon(params.id)
+  const { id } = await params;
+  const pokemon = await getPokemon(id)
 
   return (
       <PokemonPage

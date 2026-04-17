@@ -1,7 +1,6 @@
 // This lets use use try catch without always have to catch an error
 const asyncHandler = require("express-async-handler");
 const National = require("../../../models/pokemon/nationalModel");
-const { connect, disconnect } = require("../connection");
 
 const searchPokemon = asyncHandler(async (request, response) => {
   const returnArray = [];
@@ -93,12 +92,11 @@ const searchPokemon = asyncHandler(async (request, response) => {
       });
     }
 
-    disconnect();
     response.status(200).json(returnArray);
   }
 
 });
 
 module.exports = {
-  read: [connect, searchPokemon],
+  read: searchPokemon,
 };

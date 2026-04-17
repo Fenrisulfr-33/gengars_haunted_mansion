@@ -1,34 +1,46 @@
-const asyncHandler = require('express-async-handler');
 const mongoose = require('mongoose');
 require('colors');
 
-// Connection process
-const connect = asyncHandler(async (request, response, next) => {
+let cachedConnection = null;
+
+// Serverless-friendly connection caching
+const connect = async () => {
+    // If already connected, return existing connection
+    if (cachedConnection && mongoose.connection.readyState === 1) {
+        console.log('Using cached MongoDB connection'.green);
+        return cachedConnection;
+    }
+
     mongoose.set('strictQuery', true);
-    const mongoURI = getConnection();
-
-    const db = await mongoose.connect(mongoURI);
-    console.log(`Mongo Connected: ${db.connection.host}`.cyan.underline);
-    next();
-});
-
-const disconnect = asyncHandler(async (request, response, next) => {
-    await mongoose.connection.close();
-    console.log(`Mongo Disconnected: ${mongoose.connection.host}`.blue.underline);
-}); 
-
-const getConnection = () => {
-    console.log('Connecting to MongoDB...'.yellow.underline);
-
     const mongoURI = process.env.MONGO_URI;
-    console.log(mongoURI);
     
     if (!mongoURI) {
         throw new Error('MongoDB connection string is not defined in environment variables.');
     }
 
-    return mongoURI;
-}
+    console.log('Establishing new MongoDB connection...'.yellow.underline);
+
+    try {
+        const db = await mongoose.connect(mongoURI, {
+            serverSelectionTimeoutMS: 5000,
+            socketTimeoutMS: 45000,
+        });
+        
+        cachedConnection = db;
+        console.log(`Mongo Connected: ${db.connection.host}`.cyan.underline);
+        return db;
+    } catch (error) {
+        console.error('MongoDB connection error:'.red, error);
+        throw error;
+    }
+};
+
+// No-op disconnect for serverless - connection is reused
+const disconnect = () => {
+    // Don't disconnect in serverless environments
+    // Connection will be reused across invocations
+    console.log('Disconnect called but ignored (serverless mode)'.dim);
+};
 
 module.exports = {
     connect,

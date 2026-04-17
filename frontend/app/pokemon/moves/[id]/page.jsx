@@ -9,7 +9,8 @@ const getMove = async (id) => {
 }
 
 export default async function Page({ params }) {
-  const move = await getMove(params.id);
+  const { id } = await params;
+  const move = await getMove(id);
 
   return (
       <MovePage move={move} />

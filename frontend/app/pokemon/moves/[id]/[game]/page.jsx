@@ -9,6 +9,7 @@ const getMoveByGame = async (id, game) => {
 }
 
 export default async function MoveByGame({ params }) {
-  const moveByGame = await getMoveByGame(params.id, params.game);
-  return <MovePage move={moveByGame} game={params.game} />;
+  const { id, game } = await params;
+  const moveByGame = await getMoveByGame(id, game);
+  return <MovePage move={moveByGame} game={game} />;
 }

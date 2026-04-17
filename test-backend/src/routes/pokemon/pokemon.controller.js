@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const National = require("../../models/pokemon/nationalModel");
 const Moves = require("../../models/pokemon/movesModel");
 const Abilities = require("../../models/pokemon/abilitiesModel");
-const { connect, disconnect } = require("./connection");
 
 const getSearchBarList = asyncHandler(async (request, response) => {
     const nationalNames = await National.distinct("name.english");
@@ -27,11 +26,10 @@ const getSearchBarList = asyncHandler(async (request, response) => {
       };
     });
     const searchBarList = returnNationNames.concat(returnMovesNames).concat(returnAbilitiesNames);
-    disconnect();
     response.status(200).json(searchBarList);
   });
 
 
 module.exports = {
-  listNames: [connect, getSearchBarList],
+  listNames: getSearchBarList,
 };

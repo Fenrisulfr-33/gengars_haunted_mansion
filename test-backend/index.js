@@ -38,11 +38,17 @@ const errorHandler = require('./src/errors/errorHandler');
 const cors = require('cors');
 require('dotenv').config();
 const colors = require('colors');
+const { connect } = require('./src/routes/pokemon/connection');
 
 const port = process.env.PORT || 5000;
 const pokemonRouter = require('./src/routes/pokemon/index');
 
 const app = express();
+
+// Connect to MongoDB once at startup
+connect().catch(err => {
+  console.error('Failed to connect to MongoDB:'.red, err);
+});
 
 // Middleware
 app.use(cors());

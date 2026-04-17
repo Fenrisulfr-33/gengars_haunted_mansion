@@ -4,7 +4,6 @@ const National = require("../../../models/pokemon/nationalModel");
 const Moves = require("../../../models/pokemon/movesModel");
 const FormTabs = require('../../../models/pokemon/formTabsModel');
 const Evolutions = require('../../../models/pokemon/evolutionModel');
-const { connect, disconnect } = require("../connection");
 
 /* ---------- Helpers ---------- */
 
@@ -284,7 +283,6 @@ const readPokemonByGame = asyncHandler(async (request, response, next) => {
   const newMoves = getPokemonMoves(pokemon.moves, moves);
   pokemon.moves = newMoves;
 
-  disconnect();
   response.status(200).json(pokemon);
 });
 
@@ -303,12 +301,10 @@ const readPokemon = asyncHandler(async (request, response, next) => {
   // Get pokemon forms tab data if formsTab exists.
   if (pokemon.formsTab) {
     const forms = await getPokemonForms(pokemon._id, pokemonForms.tab, moves);
-    disconnect();
     response.status(200).json(forms);
   } else {
     // Get more detailed information for each pokemon move for MoveModal.
     pokemon.moves = getPokemonMoves(pokemon.moves, moves);
-    disconnect();
     response.status(200).json(pokemon);
   }
 });
@@ -351,12 +347,11 @@ const listNational = asyncHandler(async (request, response) => {
     national = await National.find().select(nationalSelect).sort(sort);
   }
 
-  disconnect();
   response.status(200).json(national);
 });
 
 module.exports = {
-  read: [connect, pokemonExists, getMoves, reformatPokemonBaseStats, reformatPokemonEvolution, readPokemon],
-  readGame: [connect, pokemonExists, getMoves, readPokemonByGame],
-  list: [connect, listNational],
+  read: [pokemonExists, getMoves, reformatPokemonBaseStats, reformatPokemonEvolution, readPokemon],
+  readGame: [pokemonExists, getMoves, readPokemonByGame],
+  list: listNational,
 };

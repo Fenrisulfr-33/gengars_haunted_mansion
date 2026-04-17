@@ -12,6 +12,7 @@ const getAbility = async (id) => {
 };
 
 export default async function Ability({ params }) {
-  const ability = await getAbility(params.id);
+  const { id } = await params;
+  const ability = await getAbility(id);
   return <AbilitiesPage ability={ability} />;
 }

@@ -30,7 +30,8 @@ const getPokemonByMoves = async (searchParams) => {
 };
 
 export default async function Page({ params, searchParams }) {
-    const searchResults = await getPokemonByMoves(searchParams);
+    const resolvedSearchParams = await searchParams;
+    const searchResults = await getPokemonByMoves(resolvedSearchParams);
     const movesNameList = await getAllMoveNames();
     return (
         <div className="flex flex-col m-2 space-y-4">

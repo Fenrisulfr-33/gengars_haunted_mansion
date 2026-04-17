@@ -1,7 +1,6 @@
 // This lets use use try catch without always have to catch an error
 const asyncHandler = require("express-async-handler");
 const National = require("../../../models/pokemon/nationalModel");
-const { connect, disconnect } = require("../connection");
 /**
  *  lists all pokemon in order of sword and shield dex number
  *
@@ -49,10 +48,9 @@ const listDex = asyncHandler(async (request, response) => {
       .sort(sort);
   }
 
-  disconnect();
   response.status(200).json(gameDex);
 });
 
 module.exports = {
-  list: [connect, listDex],
+  list: listDex,
 };

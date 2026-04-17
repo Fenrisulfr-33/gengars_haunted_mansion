@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const Moves = require("../../../models/pokemon/movesModel");
 const National = require("../../../models/pokemon/nationalModel");
-const { connect, disconnect } = require("../connection");
 const gameDropDown = require("../variables/gameDropDown");
 
 /* ---------- Middleware ---------- */
@@ -168,7 +167,6 @@ const readMove = asyncHandler(async (request, response) => {
     pokemonThatLearnMove,
   }
 
-  disconnect();
   response.status(200).json(returnMoveObj);
 });
 
@@ -178,7 +176,6 @@ const listMoves = asyncHandler(async (request, response) => {
     .select("name.english type category pp power accuracy")
     .sort({ _id: 1 });
 
-  disconnect();
   response.status(200).json(moves);
 });
 
@@ -187,12 +184,11 @@ const listMoveNames = asyncHandler(async (request, response) => {
     .select("name.english")
     .sort({ 'name.english': 1 });
 
-  disconnect();
   response.status(200).json(movesNames);
 }); 
 
 module.exports = {
-  read: [connect, moveExists, readMove],
-  list: [connect, listMoves],
-  listNames: [connect, listMoveNames]
+  read: [moveExists, readMove],
+  list: listMoves,
+  listNames: listMoveNames
 };

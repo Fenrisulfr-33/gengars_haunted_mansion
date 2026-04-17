@@ -22,15 +22,17 @@ const getPokedex = async (game, searchParams) => {
 };
 
 export default async function Page({ params, searchParams }) {
-    const pokedex = await getPokedex(params.game, searchParams);
+    const { game } = await params;
+    const resolvedSearchParams = await searchParams;
+    const pokedex = await getPokedex(game, resolvedSearchParams);
 
     return (
         <PokedexList
             list={pokedex}
-            pushRoute={params.game}
+            pushRoute={game}
             national={false}
-            game={params.game}
-            searchRoute={`/pokemon/${params.game}/pokedex`}
+            game={game}
+            searchRoute={`/pokemon/${game}/pokedex`}
         />
     );
 }

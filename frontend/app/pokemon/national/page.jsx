@@ -16,7 +16,8 @@ const getNationalDex = async (searchParams) => {
 }
 
 export default async function Page({ params, searchParams }) {
-  const nationalDex = await getNationalDex(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const nationalDex = await getNationalDex(resolvedSearchParams);
 
   return (
     <NationalDexList pokedex={nationalDex} />

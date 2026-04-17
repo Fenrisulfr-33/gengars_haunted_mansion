@@ -1,4 +1,3 @@
-const { connect, disconnect } = require("../connection");
 // This lets use use try catch without always have to catch an error
 const asyncHandler = require("express-async-handler");
 const Abilities = require("../../../models/pokemon/abilitiesModel");
@@ -80,7 +79,6 @@ const readAbility = asyncHandler(async (request, response) => {
   // Get pokemon that can learn this ability as normal/hidden.
   ability.pokemonWithAbility = await getPokemonThatLearnAbility(ability.key);
 
-  disconnect();
   response.status(200).json(ability);
 });
 
@@ -89,11 +87,10 @@ const listAbilities = asyncHandler(async (request, response) => {
     .select("name.english generation effect.shortEffect")
     .sort({ _id: 1 });
 
-  disconnect();
   response.status(200).json(abilities);
 });
 
 module.exports = {
-  read: [connect, abilityExists, readAbility],
-  list: [connect, listAbilities],
+  read: [abilityExists, readAbility],
+  list: listAbilities,
 };

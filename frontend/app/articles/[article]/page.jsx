@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import ArticleContainer from "@/components/articles/ArticleContainer";
@@ -13,8 +14,9 @@ const ArticlesLink = () => (
 );
 
 export default function ArticlePage({ params }) {
+  const { article } = use(params);
   const Content = dynamic(() =>
-    import(`@/articles/main/${params.article}.mdx`)
+    import(`@/articles/main/${article}.mdx`)
   );
 
   return (

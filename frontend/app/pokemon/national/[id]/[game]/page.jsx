@@ -10,12 +10,13 @@ const getPokemonByGame = async (id, game) => {
 }
 
 export default async function NationalIndByGame({ params }) {
-  const pokemon = await getPokemonByGame(params.id, params.game)
+  const { id, game } = await params;
+  const pokemon = await getPokemonByGame(id, game)
   return (
       <PokemonPage
         pokemon={pokemon}
-        goBackRoute={`/pokemon/${params.game}/pokedex`}
-        game={params.game}
+        goBackRoute={`/pokemon/${game}/pokedex`}
+        game={game}
       />
   );
 }
