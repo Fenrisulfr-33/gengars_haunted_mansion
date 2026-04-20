@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic';
 import { search } from "@/app/components/variables/pokemonHeaders";
 import PokedexList from "@/components/pokemon/PokedexList";
 import { createSearchQuery } from "@/helperFunctions/createSearchQuery";
+import SpriteMap from "../../components/SpriteMap";
 
 const getPokedex = async (game, searchParams) => {
     if (Object.keys(searchParams).length > 0) {
@@ -27,12 +28,14 @@ export default async function Page({ params, searchParams }) {
     const pokedex = await getPokedex(game, resolvedSearchParams);
 
     return (
-        <PokedexList
+        <div className="flex flex-col items-center"><PokedexList
             list={pokedex}
             pushRoute={game}
             national={false}
             game={game}
             searchRoute={`/pokemon/${game}/pokedex`}
         />
+        <SpriteMap pokemonList={pokedex} />
+        </div>
     );
 }
