@@ -2,11 +2,16 @@ export const dynamic = 'force-dynamic';
 
 // import MovesList from "@/components/pokemon/MovesList";
 import MovesList from "./components/MovesList";
+import { api } from "@/app/api/RestfulAPIRequest";
 
 const getMoves = async () => {
-  const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pokemon/moves`);
-  const moves = await response.json();
-  return Array.isArray(moves) ? moves : [];
+  try {
+    const moves = await api.get('/pokemon/moves');
+    return Array.isArray(moves) ? moves : [];
+  } catch (error) {
+    console.error('Failed to fetch moves:', error);
+    return [];
+  }
 }
 
 export default async function Moves() {

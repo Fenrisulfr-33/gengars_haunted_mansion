@@ -2,6 +2,7 @@ import MoveListModal from './MoveListModal';
 import { typeColors } from "@/constants/pokemonTypeColors";
 
 export default function MoveListRow({
+  key,
   move,
   levelUp,
   hmTrue,

@@ -32,6 +32,7 @@ import {
             "text-sm w-full bg-gray-600 border-2 border-purple-100 text-center rounded-lg border-separate"
           }
         >
+          <thead></thead>
           <tr>
             {types.map((type, index) => (
               <th className={type.class} key={index}>
