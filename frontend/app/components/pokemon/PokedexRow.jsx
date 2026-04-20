@@ -31,7 +31,7 @@ export default function PokedexRow({ pokemon, dexNo, national, pushRoute }) {
         <div className="flex justify-center">
           <Image
             src={`/sprites/gen_9/${_id}.png`}
-            alt={name.english}
+            alt={name?.english}
             height={60}
             width={60}
           />
