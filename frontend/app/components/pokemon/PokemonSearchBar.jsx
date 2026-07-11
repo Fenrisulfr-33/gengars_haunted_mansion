@@ -7,12 +7,12 @@ export default function PokemonSearchBar({
   selected,
   setSelected,
   placeholder,
-  list,
+  list = [],
 }) {
   const [query, setQuery] = useState("");
 
   const filteredList =
-    query.length < 3
+    query.length < 3 || !list
       ? []
       : list.filter((value) =>
           value.name
