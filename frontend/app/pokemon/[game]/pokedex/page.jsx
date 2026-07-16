@@ -28,14 +28,15 @@ export default async function Page({ params, searchParams }) {
     const pokedex = await getPokedex(game, resolvedSearchParams);
 
     return (
-        <div className="flex flex-col items-center"><PokedexList
+        <div className="flex flex-col">
+            <PokedexList
             list={pokedex}
             pushRoute={game}
             national={false}
             game={game}
             searchRoute={`/pokemon/${game}/pokedex`}
         />
-        <SpriteMap pokemonList={pokedex} />
+        {/* <SpriteMap pokemonList={pokedex} /> */}
         </div>
     );
 }
