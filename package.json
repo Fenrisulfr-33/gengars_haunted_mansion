@@ -2,11 +2,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "concurrently \"cd test-backend && npm run start\" \"cd frontend && yarn dev\"",
+    "dev": "concurrently \"cd backend && npm run start\" \"cd frontend && yarn dev\"",
     "build": "cd frontend && yarn build",
-    "backend": "cd test-backend && npm run start",
-    "setup": "yarn install && cd test-backend && yarn install && cd ../frontend && yarn install",
-    "update": "cd test-backend && yarn upgrade && cd ../frontend && yarn upgrade"
+    "backend": "cd backend && npm run start",
+    "setup": "yarn install && cd backend && yarn install && cd ../frontend && yarn install",
+    "update": "cd backend && yarn upgrade && cd ../frontend && yarn upgrade"
   },
   "dependencies": {
     "concurrently": "^9.2.1",
