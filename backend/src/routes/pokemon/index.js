@@ -5,6 +5,7 @@ const dexes = require("./gameDexes/game-dexes.controller");
 const moves = require("./moves/moves.controller");
 const abilities = require("./abilities/abilities.controller");
 const search = require("./search/search.controller");
+const evolutions = require("./evolutions/controller");
 const methodNotAllowed = require("../../errors/methodNotAllowed");
 
 const methodNotAllowedWrapper = (allowedMethods) => {
@@ -32,6 +33,8 @@ router.route("/moves/:id/:game").get(moves.read).all(methodNotAllowedWrapper(['G
 router.route("/abilities").get(abilities.list).all(methodNotAllowedWrapper(['GET']));
 
 router.route("/abilities/:id").get(abilities.read).all(methodNotAllowedWrapper(['GET']));
+
+router.route("/evolutions").get(evolutions.getEvolutions).all(methodNotAllowedWrapper(['GET']));
 
 router.route("/search").get(search.read).all(methodNotAllowedWrapper(['GET']));
 

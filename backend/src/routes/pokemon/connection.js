@@ -12,7 +12,7 @@ const connect = async () => {
     }
 
     mongoose.set('strictQuery', true);
-    const mongoURI = process.env.MONGO_URI;
+    const mongoURI = process.env.MONGO_URI_DEV;
     
     if (!mongoURI) {
         throw new Error('MongoDB connection string is not defined in environment variables.');

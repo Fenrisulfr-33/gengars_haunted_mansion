@@ -50,7 +50,7 @@ const getPokemonThatKnowMoveByGame = async (move, game) => {
   // Go through every pokemon.
   gameDex.forEach((pokemon) => {
     // Check if the associated game exists.
-    if (pokemon.moves[game]) {
+    if (pokemon.moves && pokemon.moves[game]) {
       // Create base return object outside of level-up, etc..
       const basePokemon = {
         id: pokemon._id,
@@ -115,6 +115,7 @@ const getPokemonThatKnowMoveByGame = async (move, game) => {
 };
 
 const getMoveGameDropDown = (generation) => {
+  generation = Number(generation);
   // gameDropDown length current is 18
   switch (Number(generation)) {
     case 9:
