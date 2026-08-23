@@ -35,6 +35,7 @@ router.route("/abilities").get(abilities.list).all(methodNotAllowedWrapper(['GET
 router.route("/abilities/:id").get(abilities.read).all(methodNotAllowedWrapper(['GET']));
 
 router.route("/evolutions").get(evolutions.getEvolutions).all(methodNotAllowedWrapper(['GET']));
+router.route("/evolutions/:id").get(evolutions.getEvolutionById).all(methodNotAllowedWrapper(['GET']));
 
 router.route("/search").get(search.read).all(methodNotAllowedWrapper(['GET']));
 

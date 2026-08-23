@@ -8,8 +8,7 @@
  * mirroring the JSON Schema's stage/branch/chain/chainNode definitions.
  */
 
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema, model } = require('mongoose');
 
 const POKEMON_TYPES = [
 	'Normal', 'Fire', 'Water', 'Electric', 'Grass', 'Ice', 'Fighting',
@@ -120,4 +119,4 @@ const evolutionEntrySchema = new Schema(
 	}
 );
 
-module.exports = mongoose.model('Evolutions', evolutionEntrySchema, 'evolutions');
+module.exports = model('Evolutions', evolutionEntrySchema, 'evolutions');

@@ -1,3 +1,12 @@
+# Base speeds
+
+| Function 					| Current Speed |
+| -							| -				| 
+| GET abilities			 	| 66ms			|
+| GET ability				| 20ms			|
+| GET evolutions			| 60ms			|
+| GET evolutions			| 20ms			|
+
 Speedup formula
 
 $S = \frac{T_{old}}{T_{new}}$
@@ -14,3 +23,4 @@ $\frac{T_{old}-T_{new}}{T_{old}} * 100$
 
 1. 2026-08-23 GET abilities added `.lean()` to end of query.
 2. 2026-08-23 GET ability has pokemonWithAbility built in removed unnecessary GET national and search for all pokemon with ability.
+3. 2026-08-23 evolutions controller added try catch and proper response codes.
